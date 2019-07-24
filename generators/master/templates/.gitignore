@@ -1,0 +1,13 @@
+*.suo
+*.user
+*.sln.docstates
+.vs/*
+_*
+[Bb]in/
+[Oo]bj/
+node_modules
+bower_components
+packages
+tools
+Releases
+local.json

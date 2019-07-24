@@ -1,0 +1,53 @@
+{
+  "name": "<%= projectname.toLowerCase() %>",
+  "version": "0.0.1",
+  "description": "<%= projectdescription %>",
+  "dnn": {
+    "projectFolders": [
+    ],
+    "owner": {
+      "name": "<%= yourname %>",
+      "organization": "<%= companyfull %>",
+      "url": "<%= companyUrl %>",
+      "email": "<%= email %>"
+    },
+    "pathsAndFiles": {
+      "solutionFile": "./<%= companyshort %>.<%= projectname %>.sln",
+      "pathToAssemblies": "./bin",
+      "devSiteUrl": "",
+      "devSitePath": "",
+      "excludeFilter": [
+        "bin/",
+        "obj/",
+        "node_modules",
+        "_"
+      ],
+      "licenseFile": "./License.md",
+      "releaseNotesFile": "",
+      "releaseFiles": [
+        "App_LocalResources/*.resx",
+        "**/*.ascx",
+        "Views/**/*.cshtml",
+        "js/*.js",
+        "css/*.css",
+        "*.css",
+        "**/*.html",
+        "**/*.png",
+        "**/*.gif",
+        "**/*.eot",
+        "**/*.svg",
+        "**/*.ttf",
+        "**/*.woff",
+        "**/*.woff2",
+        "*.txt"
+      ],
+      "zipName": "<%= companyshort %>.<%= projectname %>"
+    }
+  },
+  "scripts": {
+    "build": "set NODE_ENV=production&&webpack -p --config Client/webpack.config.js",
+    "watch": "webpack --config Client/webpack.config.js --progress --colors --watch",
+    "watch-js": "node BuildSupport/watch.js"
+  },
+  "author": "<%= yourname %>"
+}
