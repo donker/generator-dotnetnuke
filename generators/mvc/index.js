@@ -37,13 +37,6 @@ module.exports = class extends DnnGeneratorBase {
         validate: str => {
           return str.length > 0;
         }
-      },
-      {
-        type: "confirm",
-        name: "Separate",
-        default: false,
-        message: "As a separate DNN extension?",
-        store: false
       }
     ];
 
@@ -54,7 +47,7 @@ module.exports = class extends DnnGeneratorBase {
   }
 
   writing() {
-    this.log(chalk.white("Creating library project."));
+    this.log(chalk.white("Creating MVC project."));
 
     let template = Object.assign({}, this.config.getAll(), this.props, {
       Guid: this._generateGuid()
@@ -63,18 +56,24 @@ module.exports = class extends DnnGeneratorBase {
       "Server/" + template.Name + "/" + template.Namespace + ".csproj";
 
     this.fs.copyTpl(
-      this.templatePath("../../common/csproj/_library.csproj"),
+      this.templatePath("../../common/csproj/_web.csproj"),
       this.destinationPath(this.projPath),
       template
     );
 
-    if (this.props.Separate) {
-      this.fs.copyTpl(
-        this.templatePath("dnn.json"),
-        this.destinationPath("Server/" + template.Name + "/dnn.json"),
-        template
-      );
-    }
+    this.fs.copyTpl(
+      this.templatePath("**/*.*"),
+      this.destinationPath("Server/" + template.Name + "/"),
+      template,
+      null,
+      {
+        globOptions: {
+          ignore: ["**/_*.*"]
+        }
+      }
+    );
+
+    this._copyTplWithNameReplace([this.templatePath("Common/_*.*")], "Server/" + template.Name + "/Common/", template);
   }
 
   install() {
@@ -83,16 +82,14 @@ module.exports = class extends DnnGeneratorBase {
       this.projPath
     );
     this._addNugetPackages(packages, this.projPath);
-    if (this.props.Separate) {
-      let project = this.fs.readJSON(this.destinationPath("package.json"));
-      if (project) {
-        project.dnn.projectFolders.push("Server/" + this.props.Name);
-        this.fs.writeJSON(this.destinationPath("package.json"), project);
-      }
+    let project = this.fs.readJSON(this.destinationPath("package.json"));
+    if (project) {
+      project.dnn.projectFolders.push("Server/" + this.props.Name);
+      this.fs.writeJSON(this.destinationPath("package.json"), project);
     }
   }
 
   end() {
-    this.log(chalk.white("Created library project."));
+    this.log(chalk.white("Created MVC project."));
   }
 };

@@ -1,0 +1,31 @@
+[
+    {
+      "versions": [
+        "8.0.0",
+        "8.0.1",
+        "8.0.2",
+        "8.0.3",
+        "8.0.4",
+        "9.0.0",
+        "9.0.1",
+        "9.0.2",
+        "9.1.0",
+        "9.1.1"
+      ],
+      "packages": [
+        {
+          "package": "Newtonsoft.Json",
+          "version": "7.0.1"
+        },
+        {
+          "package": "Microsoft.AspNet.Mvc",
+          "version": "5.1.3"
+        },
+        {
+          "package": "Microsoft.AspNet.WebApi.Core",
+          "version": "5.2.3"
+        }
+      ]
+    }
+  ]
+  

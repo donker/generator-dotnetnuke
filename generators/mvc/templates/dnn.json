@@ -1,0 +1,42 @@
+{
+  "name": "<%= Company %>.<%= Name %>",
+  "projectType": "module",
+  "friendlyName": "<%= Name %> Module",
+  "description": "<%= Company %> <%= Name %> Module",
+  "packageName": "<%= Company %>_<%= Name %>",
+  "folder": "MVC/<%= Company %>/<%= Name %>",
+  "iconFile": "DesktopModules\\MVC\\<%= Company %>\\<%= Name %>\\<%= Name %>.png",
+  "module": {
+    "azureCompatible": "true",
+    "moduleName": "<%= Company %>_<%= Name %>",
+    "foldername": "<%= Company %>/<%= Name %>",
+    "moduleDefinitions": [
+      {
+        "friendlyName": "<%= Company %> <%= Name %>",
+        "defaultCacheTime": 0,
+        "moduleControls": [
+          {
+            "controlSrc": "<%= Namespace %>.Controllers/Home/Index.mvc",
+            "supportsPartialRendering": "False",
+            "controlTitle": "<%= Name %>",
+            "controlType": "View",
+            "viewOrder": 0
+          },
+          {
+            "controlKey": "Settings",
+            "controlSrc": "<%= Namespace %>.Controllers/Settings/Settings.mvc",
+            "supportsPartialRendering": "False",
+            "controlTitle": "<%= Name %> Settings",
+            "controlType": "Edit",
+            "viewOrder": 0
+          }
+        ]
+      }
+    ]
+  },
+  "pathsAndFiles": {
+    "pathToAssemblies": "./bin",
+    "assemblies": ["<%= Namespace %>.dll"],
+    "excludeFilter": ["<%= Name %>/bin/", "<%= Name %>/obj/"]
+  }
+}

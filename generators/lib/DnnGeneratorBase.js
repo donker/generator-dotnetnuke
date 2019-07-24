@@ -4,6 +4,8 @@ const chalk = require("chalk");
 const uuid = require("uuid-v4");
 const pascalCase = require("pascal-case");
 const which = require("which");
+const fg = require("fast-glob");
+const path = require("path");
 
 module.exports = class DnnGeneratorBase extends Generator {
   constructor(args, opts) {
@@ -181,5 +183,17 @@ module.exports = class DnnGeneratorBase extends Generator {
         ]);
       });
     }
+  }
+
+  _copyTplWithNameReplace(patterns, to, context) {
+    let files = fg.sync(patterns);
+    files.forEach(file => {
+      let newFileName = path.basename(file).replace("_name_", context.Name).replace("_company_", context.Company).replace("_", "");
+      this.fs.copyTpl(
+        file,
+        this.destinationPath(to + newFileName),
+        context
+      );
+    });
   }
 };
