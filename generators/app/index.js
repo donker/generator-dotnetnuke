@@ -32,6 +32,10 @@ module.exports = class extends Generator {
         ]
       },
       {
+        when: () => {
+          let pv = this.config.get("promptValues");
+          return pv ? pv.dnnVersion == undefined : false;
+        },
         type: "list",
         name: "dnnVersion",
         message: "DNN target version:",

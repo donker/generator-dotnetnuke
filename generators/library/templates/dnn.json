@@ -1,0 +1,16 @@
+{
+  "projectType": "library",
+  "name": "<%= Company %>_<%= Name %>",
+  "friendlyName": "<%= Company %> <%= Name %>",
+  "description": "<%= Company %> <%= Name %> Library",
+  "packageName": "<%= Company %>_<%= Name %>",
+  "folder": "<%= Company %>/<%= Name %>",
+  "library": {},
+  "pathsAndFiles": {
+    "pathToAssemblies": "./bin",
+    "pathToScripts": "./Server/SqlScripts",
+    "assemblies": ["<%= Namespace %>.dll"],
+    "releaseFiles": [],
+    "zipName": "<%= Company %>.<%= Name %>"
+  }
+}

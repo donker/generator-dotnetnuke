@@ -26,15 +26,29 @@ module.exports = class extends DnnGeneratorBase {
         type: "input",
         name: "Namespace",
         message: "Namespace:",
-        default: (answers) => { return this.config.get("Namespace") + '.' + this._pascalCaseName(answers.Name) },
+        default: answers => {
+          return (
+            this.config.get("Namespace") +
+            "." +
+            this._pascalCaseName(answers.Name)
+          );
+        },
         store: false,
         validate: str => {
           return str.length > 0;
         }
+      },
+      {
+        type: "confirm",
+        name: "Separate",
+        default: false,
+        message: "As a separate DNN extension?",
+        store: false
       }
     ];
 
     return this.prompt(prompts).then(props => {
+      props.Name = this._pascalCaseName(props.Name);
       this.props = props;
     });
   }
@@ -45,18 +59,37 @@ module.exports = class extends DnnGeneratorBase {
     let template = Object.assign({}, this.config.getAll(), this.props, {
       Guid: this._generateGuid()
     });
-    this.projPath = template.Name + '/' + template.Namespace + '.csproj';
+    this.projPath =
+      "Server/" + template.Name + "/" + template.Namespace + ".csproj";
 
     this.fs.copyTpl(
-      this.templatePath("_project.csproj"),
+      this.templatePath("../../common/csproj/library.csproj"),
       this.destinationPath(this.projPath),
       template
     );
+
+    if (this.props.Separate) {
+      this.fs.copyTpl(
+        this.templatePath("dnn.json"),
+        this.destinationPath("Server/" + template.Name + "/dnn.json"),
+        template
+      );
+    }
   }
 
   install() {
-    this._addProjectToSolution(this.config.get("Solution") + '.sln', this.projPath);
+    this._addProjectToSolution(
+      this.config.get("Solution") + ".sln",
+      this.projPath
+    );
     this._addNugetPackages(packages, this.projPath);
+    if (this.props.Separate) {
+      let project = this.fs.readJSON(this.destinationPath("package.json"));
+      if (project) {
+        project.dnn.projectFolders.push("Server/" + this.props.Name);
+        this.fs.writeJSON(this.destinationPath("package.json"), project);
+      }
+    }
   }
 
   end() {
