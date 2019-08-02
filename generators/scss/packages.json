@@ -1,0 +1,11 @@
+[
+  {
+    "versions": "all",
+    "nodePackages": [
+      {
+        "package": "sass-loader",
+        "dev": true
+      }
+    ]
+  }
+]

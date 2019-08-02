@@ -70,7 +70,6 @@ module.exports = class extends DnnGeneratorBase {
   }
 
   install() {
-    console.log(this.props);
     this._installWebPack();
     this._addPackages(packages, this.destinationPath("."));
     if (this.props.ReactOptions.includes("redux")) {

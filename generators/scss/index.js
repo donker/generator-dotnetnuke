@@ -1,6 +1,7 @@
 "use strict";
 const DnnGeneratorBase = require("../lib/DnnGeneratorBase");
 const chalk = require("chalk");
+const packages = require("./packages.json");
 
 module.exports = class extends DnnGeneratorBase {
   constructor(args, opts) {
@@ -55,6 +56,8 @@ module.exports = class extends DnnGeneratorBase {
   }
 
   install() {
+    this._installWebPack();
+    this._addPackages(packages, this.destinationPath("."));
   }
 
   end() {
