@@ -72,12 +72,12 @@ module.exports = class extends DnnGeneratorBase {
   install() {
     console.log(this.props);
     this._installWebPack();
-    this._addNugetPackages(packages, this.destinationPath("."));
+    this._addPackages(packages, this.destinationPath("."));
     if (this.props.ReactOptions.includes("redux")) {
-      this._addNugetPackages(reduxPackages, this.destinationPath("."));
+      this._addPackages(reduxPackages, this.destinationPath("."));
     }
     if (this.props.ReactOptions.includes("router")) {
-      this._addNugetPackages(routerPackages, this.destinationPath("."));
+      this._addPackages(routerPackages, this.destinationPath("."));
     }
   }
 

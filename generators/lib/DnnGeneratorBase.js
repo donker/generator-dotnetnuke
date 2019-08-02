@@ -51,10 +51,10 @@ module.exports = class DnnGeneratorBase extends Generator {
   }
 
   _installWebPack() {
-    this._addNugetPackages(webPackPackages, this.destinationPath("."));
+    this._addPackages(webPackPackages, this.destinationPath("."));
   }
 
-  _addNugetPackages(packages, projFile) {
+  _addPackages(packages, projFile) {
     if (!packages) return;
     let version = this.config.get("promptValues").dnnVersion;
     let useNpm = this.config.get("promptValues").npm;

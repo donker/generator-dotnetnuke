@@ -81,7 +81,7 @@ module.exports = class extends DnnGeneratorBase {
       this.config.get("Solution") + ".sln",
       this.projPath
     );
-    this._addNugetPackages(packages, this.projPath);
+    this._addPackages(packages, this.projPath);
     let project = this.fs.readJSON(this.destinationPath("package.json"));
     if (project) {
       project.dnn.projectFolders.push("Server/" + this.props.Name);
