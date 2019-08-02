@@ -1,0 +1,15 @@
+[
+  {
+    "versions": "all",
+    "nodePackages": [
+      {
+        "package": "react-router",
+        "dev": false
+      },
+      {
+        "package": "react-router-dom",
+        "dev": false
+      }
+    ]
+  }
+]

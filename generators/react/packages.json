@@ -1,0 +1,31 @@
+[
+  {
+    "versions": "all",
+    "nodePackages": [
+      {
+        "package": "react",
+        "dev": false
+      },
+      {
+        "package": "react-dom",
+        "dev": false
+      },
+      {
+        "package": "@types/react",
+        "dev": true
+      },
+      {
+        "package": "@types/react-dom",
+        "dev": true
+      },
+      {
+        "package": "jquery",
+        "dev": true
+      },
+      {
+        "package": "@types/jquery",
+        "dev": true
+      }
+    ]
+  }
+]

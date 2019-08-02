@@ -1,10 +1,27 @@
 "use strict";
-const Generator = require("yeoman-generator");
+const DnnGeneratorBase = require("../lib/DnnGeneratorBase");
 const yosay = require("yosay");
 const chalk = require("chalk");
 const versions = require("./versions.json");
 
-module.exports = class extends Generator {
+module.exports = class extends DnnGeneratorBase {
+  constructor(args, opts) {
+    super(args, opts);
+
+    // This method adds support for a `--test` flag
+    this.option("noinstall");
+
+    if (this.config.get("promptValues")) {
+      if (this.config.get("promptValues").npm == undefined) {
+        if (!this._hasYarn()) {
+          this.config.set("promptValues", Object.assign({}, this.config.get("promptValues"), {
+            npm: true
+          }))
+        }
+      }
+    }
+  }
+
   prompting() {
     this.log(
       yosay(
@@ -43,6 +60,18 @@ module.exports = class extends Generator {
         choices: versions.map(v => {
           return { name: v, value: v };
         })
+      },
+      {
+        when: () => {
+          let pv = this.config.get("promptValues");
+          return pv ? pv.npm == undefined : false;
+        },
+        type: "list",
+        name: "npm",
+        message: "NPM or Yarn:",
+        store: true,
+        choices: [{ name: "NPM", value: true },
+        { name: "Yarn", value: false }]
       }
     ];
 

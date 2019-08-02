@@ -1,0 +1,6 @@
+[
+  {
+    "versions": "all",
+    "nodePackageList": ["react-redux", "redux", "redux-thunk"]
+  }
+]
