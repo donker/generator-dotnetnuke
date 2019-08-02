@@ -19,7 +19,9 @@
       "sass-loader",
       "style-loader",
       "ts-loader",
-      "typescript"
+      "typescript",
+      "deepmerge",
+      "concurrently"
     ]
   }
 ]

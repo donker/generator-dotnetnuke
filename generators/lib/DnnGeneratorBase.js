@@ -51,6 +51,14 @@ module.exports = class DnnGeneratorBase extends Generator {
   }
 
   _installWebPack() {
+    if (!this.fs.exists(this.destinationPath("Client/webpack.config.js"))) {
+      let template = Object.assign({}, this.config.getAll(), this.props);
+      this.fs.copyTpl(
+        this.templatePath("../common/webpack/*.*"),
+        this.destinationPath("."),
+        template
+      );
+    }
     this._addPackages(webPackPackages, this.destinationPath("."));
   }
 
@@ -65,22 +73,25 @@ module.exports = class DnnGeneratorBase extends Generator {
         nugetPackageList = p.nugetPackages;
         nodePackageList = p.nodePackages || [];
         if (p.nodePackageList) {
-          nodePackageList.push(p.nodePackageList.map(n => {
-            return {
-              package: n
-            }
-          }));
+          nodePackageList.push(
+            p.nodePackageList.map(n => {
+              return {
+                package: n
+              };
+            })
+          );
         }
-      }
-      else if (p.versions.includes(version)) {
+      } else if (p.versions.includes(version)) {
         nugetPackageList = p.nugetPackages;
         nodePackageList = p.nodePackages || [];
         if (p.nodePackageList) {
-          nodePackageList.push(p.nodePackageList.map(n => {
-            return {
-              package: n
-            }
-          }));
+          nodePackageList.push(
+            p.nodePackageList.map(n => {
+              return {
+                package: n
+              };
+            })
+          );
         }
       }
     });
@@ -118,9 +129,9 @@ module.exports = class DnnGeneratorBase extends Generator {
         }
         if (canAdd) {
           if (useNpm) {
-            this.npmInstall(pkg, { 'save-dev': dev });
+            this.npmInstall(pkg, { "save-dev": dev });
           } else {
-            this.yarnInstall(pkg, { 'save-dev': dev });
+            this.yarnInstall(pkg, { "save-dev": dev });
           }
         }
       });

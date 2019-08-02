@@ -52,6 +52,7 @@ module.exports = class extends DnnGeneratorBase {
     let template = Object.assign({}, this.config.getAll(), this.props, {
       Guid: this._generateGuid()
     });
+    
     this.projPath =
       "Server/" + template.Name + "/" + template.Namespace + ".csproj";
 
