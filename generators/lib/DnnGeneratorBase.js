@@ -54,7 +54,7 @@ module.exports = class DnnGeneratorBase extends Generator {
     if (!this.fs.exists(this.destinationPath("Client/webpack.config.js"))) {
       let template = Object.assign({}, this.config.getAll(), this.props);
       this.fs.copyTpl(
-        this.templatePath("../common/webpack/*.*"),
+        this.templatePath("../common/webpack/templates/*.*"),
         this.destinationPath("."),
         template
       );
