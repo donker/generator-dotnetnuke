@@ -1,14 +1,13 @@
-using DotNetNuke.Web.Mvc.Framework.Controllers;
-using DotNetNuke.Collections;
-using System.Web.Mvc;
 using DotNetNuke.Security;
 using DotNetNuke.Web.Mvc.Framework.ActionFilters;
+using <%= Namespace %>.Common;
+using System.Web.Mvc;
 
 namespace <%= Namespace %>.Controllers
 {
     [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Edit)]
     [DnnHandleError]
-    public class SettingsController : DnnController
+    public class SettingsController : <%= Name %>MvcController
     {
         /// <summary>
         /// 
@@ -17,11 +16,7 @@ namespace <%= Namespace %>.Controllers
         [HttpGet]
         public ActionResult Settings()
         {
-            var settings = new Models.Settings();
-            settings.Setting1 = ModuleContext.Configuration.ModuleSettings.GetValueOrDefault("Setting1", false);
-            settings.Setting2 = ModuleContext.Configuration.ModuleSettings.GetValueOrDefault("Setting2", System.DateTime.Now);
-
-            return View(settings);
+            return View(<%= Name %>ModuleContext.Settings);
         }
 
         /// <summary>
@@ -32,11 +27,9 @@ namespace <%= Namespace %>.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [DotNetNuke.Web.Mvc.Framework.ActionFilters.ValidateAntiForgeryToken]
-        public ActionResult Settings(Models.Settings settings)
+        public ActionResult Settings(ModuleSettings settings)
         {
-            ModuleContext.Configuration.ModuleSettings["Setting1"] = settings.Setting1.ToString();
-            ModuleContext.Configuration.ModuleSettings["Setting2"] = settings.Setting2.ToUniversalTime().ToString("u");
-
+            settings.SaveSettings(ModuleContext.Configuration);
             return RedirectToDefaultRoute();
         }
     }

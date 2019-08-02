@@ -179,7 +179,7 @@ module.exports = class DnnGeneratorBase extends Generator {
           "package",
           p.package,
           "-v",
-          p.version
+          p.version == "current" ? version : p.version
         ]);
       });
     }

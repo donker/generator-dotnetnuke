@@ -60,6 +60,20 @@ namespace <%= Namespace %>.Common
             get { return _security ?? (_security = ContextSecurity.GetSecurity(ModuleContext)); }
         }
 
+        public void RequirePermissionLevel(bool level)
+        {
+            if (!level)
+            {
+                ThrowAccessViolation();
+            }
+        }
+
+        private ModuleSettings _settings;
+        public ModuleSettings Settings
+        {
+            get { return _settings ?? (_settings = ModuleSettings.GetSettings(ModuleContext)); }
+        }
+
         #region Css Files
         public void AddCss(string cssFile, string name, string version)
         {
