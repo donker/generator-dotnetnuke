@@ -54,7 +54,7 @@ module.exports = class DnnGeneratorBase extends Generator {
     if (!this.fs.exists(this.destinationPath("Client/webpack.config.js"))) {
       let template = Object.assign({}, this.config.getAll(), this.props);
       this.fs.copyTpl(
-        this.templatePath("../common/webpack/templates/*.*"),
+        this.templatePath("../../common/webpack/templates/*.*"),
         this.destinationPath("."),
         template
       );
@@ -119,11 +119,11 @@ module.exports = class DnnGeneratorBase extends Generator {
         }
         let canAdd = true;
         if (dev) {
-          if (devDependencies[np.package] != undefined) {
+          if (devDependencies && devDependencies[np.package] != undefined) {
             canAdd = false;
           }
         } else {
-          if (dependencies[np.package] != undefined) {
+          if (dependencies && dependencies[np.package] != undefined) {
             canAdd = false;
           }
         }

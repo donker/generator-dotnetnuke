@@ -16,6 +16,7 @@
       "file-loader",
       "filemanager-webpack-plugin",
       "mini-css-extract-plugin",
+      "node-sass",
       "sass-loader",
       "style-loader",
       "ts-loader",

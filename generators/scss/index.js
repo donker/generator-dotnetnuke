@@ -42,9 +42,13 @@ module.exports = class extends DnnGeneratorBase {
   writing() {
     this.log(chalk.white("Creating Sass project."));
 
+    let template = Object.assign({}, this.config.getAll(), this.props, {
+      Guid: this._generateGuid()
+    });
+
     this.fs.copyTpl(
       this.templatePath("**/*.*"),
-      this.destinationPath("Client/" + template.Name + "/"),
+      this.destinationPath("Client/Css/" + template.Name + "/"),
       template,
       null,
       {

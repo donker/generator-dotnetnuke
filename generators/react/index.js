@@ -54,9 +54,13 @@ module.exports = class extends DnnGeneratorBase {
   writing() {
     this.log(chalk.white("Creating React project."));
 
+    let template = Object.assign({}, this.config.getAll(), this.props, {
+      Guid: this._generateGuid()
+    });
+
     this.fs.copyTpl(
       this.templatePath("**/*.*"),
-      this.destinationPath("Client/" + template.Name + "/"),
+      this.destinationPath("Client/Js/" + template.Name + "/"),
       template,
       null,
       {
