@@ -45,7 +45,8 @@ module.exports = class extends DnnGeneratorBase {
           { name: "Library Project", value: "library" },
           { name: "MVC Module", value: "mvc" },
           { name: "SCSS", value: "scss" },
-          { name: "React", value: "react" }
+          { name: "React", value: "react" },
+          { name: "Skin", value: "skin" }
         ]
       },
       {

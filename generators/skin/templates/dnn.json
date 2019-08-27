@@ -1,0 +1,9 @@
+{
+    "name": "<%= Company %>.<%= Name %>",
+    "projectType": "skin",
+    "friendlyName": "<%= Name %> Skin",
+    "description": "<%= Company %> <%= Name %> Skin",
+    "packageName": "<%= Company %>_<%= Name %>",
+    "iconFile": "<%= Name %>.png"
+  }
+  
