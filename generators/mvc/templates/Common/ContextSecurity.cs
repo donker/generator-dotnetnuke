@@ -38,6 +38,7 @@ namespace <%= Namespace %>.Common
         #region ctor
         public ContextSecurity(ModuleInfo objModule, UserInfo user)
         {
+            this.user = user;
             if (user.IsSuperUser)
             {
                 CanView = CanEdit = IsAdmin = true;
