@@ -37,18 +37,31 @@ module.exports = class extends DnnGeneratorBase {
       Guid: this._generateGuid()
     });
 
+    this.projPath =
+      "Themes/" + template.Name + "/" + template.Name + "_Theme.csproj";
+
+    this.fs.copyTpl(
+      this.templatePath("../../common/csproj/_web.csproj"),
+      this.destinationPath(this.projPath),
+      template
+    );
+
     this.fs.copyTpl(
       this.templatePath("**/*.*"),
-      this.destinationPath("Server/" + template.Name + "/"),
+      this.destinationPath("Themes/" + template.Name + "/"),
       template
     );
   }
 
   install() {
+    this._addProjectToSolution(
+      this.config.get("Solution") + ".sln",
+      this.projPath
+    );
     this._addPackages(packages, this.destinationPath("."));
     let project = this.fs.readJSON(this.destinationPath("package.json"));
     if (project) {
-      project.dnn.projectFolders.push("Server/" + this.props.Name);
+      project.dnn.projectFolders.push("Themes/" + this.props.Name);
       this.fs.writeJSON(this.destinationPath("package.json"), project);
     }
   }
