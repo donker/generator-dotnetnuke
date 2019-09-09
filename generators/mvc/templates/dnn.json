@@ -10,6 +10,8 @@
     "azureCompatible": "true",
     "moduleName": "<%= Company %>_<%= Name %>",
     "foldername": "<%= Company %>/<%= Name %>",
+    "businessControllerClass": "<%= Namespace %>.Common.ModuleController, <%= Namespace.toUpperCase() %>",
+    "supportedFeatures": ["Portable"],
     "moduleDefinitions": [
       {
         "friendlyName": "<%= Company %> <%= Name %>",
