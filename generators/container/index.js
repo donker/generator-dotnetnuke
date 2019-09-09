@@ -38,7 +38,7 @@ module.exports = class extends DnnGeneratorBase {
     });
 
     this.projPath =
-      "Themes/Skins/" + template.Name + "/" + template.Name + ".csproj";
+      "Themes/Containers/" + template.Name + "/" + template.Name + ".csproj";
 
     this.fs.copyTpl(
       this.templatePath("../../common/csproj/_web.csproj"),
@@ -48,7 +48,7 @@ module.exports = class extends DnnGeneratorBase {
 
     this.fs.copyTpl(
       this.templatePath("**/*.*"),
-      this.destinationPath("Themes/Skins/" + template.Name + "/"),
+      this.destinationPath("Themes/Containers/" + template.Name + "/"),
       template
     );
   }
@@ -61,12 +61,12 @@ module.exports = class extends DnnGeneratorBase {
     this._addPackages(packages, this.destinationPath("."));
     let project = this.fs.readJSON(this.destinationPath("package.json"));
     if (project) {
-      project.dnn.projectFolders.push("Themes/Skins/" + this.props.Name);
+      project.dnn.projectFolders.push("Themes/Containers/" + this.props.Name);
       this.fs.writeJSON(this.destinationPath("package.json"), project);
     }
   }
 
   end() {
-    this.log(chalk.white("Created Skin project."));
+    this.log(chalk.white("Created container project."));
   }
 };
