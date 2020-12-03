@@ -111,6 +111,10 @@ namespace <%= Namespace %>.Common
         {
             AddScript(name + ".js");
         }
+        public void AddModuleScript()
+        {
+            AddModuleScript("<%= Name.toLowerCase() %>");
+        }
 
         public void ThrowAccessViolation()
         {

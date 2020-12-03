@@ -1,0 +1,63 @@
+[
+  {
+    "versions": "all",
+    "nodePackages": [
+      {
+        "package": "@babel/core",
+        "dev": true
+      },
+      {
+        "package": "@babel/preset-env",
+        "dev": true
+      },
+      {
+        "package": "@babel/preset-react",
+        "dev": true
+      },
+      {
+        "package": "@babel/preset-typescript",
+        "dev": true
+      },
+      {
+        "package": "babel-loader",
+        "dev": true
+      },
+      {
+        "package": "css-loader",
+        "dev": true
+      },
+      {
+        "package": "file-loader",
+        "dev": true
+      },
+      {
+        "package": "mini-css-extract-plugin",
+        "dev": true
+      },
+      {
+        "package": "postcss-loader",
+        "dev": true
+      },
+      {
+        "package": "sass-loader",
+        "dev": true
+      },
+      {
+        "package": "style-loader",
+        "dev": true
+      },
+      {
+        "package": "ts-loader",
+        "dev": true
+      },
+      {
+        "package": "webpack",
+        "dev": true
+      },
+      {
+        "package": "webpack-cli",
+        "dev": true
+      }
+    ]
+  }
+]

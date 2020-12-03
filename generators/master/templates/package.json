@@ -19,20 +19,22 @@
       "excludeFilter": [
         "bin/",
         "obj/",
-        "node_modules",
-        "_"
+        "node_modules"
       ],
       "licenseFile": "./License.md",
       "releaseNotesFile": "",
       "releaseFiles": [
         "App_LocalResources/*.resx",
         "**/*.ascx",
-        "Views/**/*.cshtml",
+        "**/*.cshtml",
+        "**/*.vbhtml",
         "js/*.js",
         "css/*.css",
         "*.css",
         "**/*.html",
         "**/*.png",
+        "**/*.jpg",
+        "**/*.jpeg",
         "**/*.gif",
         "**/*.eot",
         "**/*.svg",
@@ -45,9 +47,9 @@
     }
   },
   "scripts": {
-    "build": "set NODE_ENV=production&&webpack -p --config Client/webpack.config.js",
-    "watch": "webpack --config Client/webpack.config.js --progress --colors --watch",
-    "watch-js": "node BuildSupport/watch.js"
+    "build": "set NODE_ENV=production&&webpack --config Client/webpack.config.js",
+    "watch": "webpack --config Client/webpack.config.js --progress --watch",
+    "watch-server": "node watch.js"
   },
   "author": "<%= yourname %>"
 }

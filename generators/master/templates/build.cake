@@ -25,9 +25,8 @@ var buildSettings = new MSBuildSettings()
 
 Task("AssemblyInfo")
 .Does(() => {
-    var settings = new GlobberSettings();
-    settings.Predicate = Utilities.ExcludeFunction(solution.dnn.pathsAndFiles.excludeFilter);
-    var files = GetFiles("./**/AssemblyInfo.*", settings);
+    var ptrn = new string[] {"./**/AssemblyInfo.*"};
+    var files = GetFilesByPatterns(ptrn, solution.dnn.pathsAndFiles.excludeFilter);
     foreach(var file in files)
     {
         Information("Updating Assembly: {0}", file);
@@ -68,13 +67,7 @@ Task("Package")
             } else {
                 excludeFiles = excludeFiles.Concat(solution.dnn.pathsAndFiles.excludeFilter).ToArray();
             }
-            var files = Utilities.GetFilesByPatterns(Context, devPath, releaseFiles, Utilities.ExcludeFunction(excludeFiles));
-            if (files.Count > 0) {
-                var resZip = ZipToBytes(devPath, files);
-                Information("Zipped resources file");
-                AddBinaryFileToZip(packagePath, resZip, p.packageName + ".zip", true);
-            }
-            Information("Added resources from " + devPath);
+            Utilities.CreateResourcesFile(Context, devPath, packagePath, p.packageName, releaseFiles, excludeFiles);
         }
         foreach (var a in p.pathsAndFiles.assemblies) {
             if (!addedDlls.Contains(a)) {
@@ -83,7 +76,6 @@ Task("Package")
                 addedDlls.Add(a);
             }
         }
-        // var x = Console.ReadLine();
         if (!string.IsNullOrEmpty(p.pathsAndFiles.pathToScripts)) {
             var files = GetFiles(p.pathsAndFiles.pathToScripts + "/*.SqlDataProvider");
             AddFilesToZip(packagePath, p.pathsAndFiles.pathToScripts, solution.dnn.pathsAndFiles.packageScriptsFolder + "/" + p.packageName, files, true);
@@ -106,8 +98,15 @@ Task("Package")
 });
 
 Task("Default")
+.IsDependentOn("Package")
+.Does(() => {
+});
+
+Task("Test")
 .IsDependentOn("Build")
 .Does(() => {
+    Information("Test");
+    Information(solution.dnn.projects.Count);
 });
 
 RunTarget(target);

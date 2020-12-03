@@ -113,7 +113,7 @@ module.exports = class extends DnnGeneratorBase {
       this.config.set("Company", props.companyshort);
       this.config.set("Project", props.projectname);
       this.config.set("Namespace", props.namespace);
-      this.config.set("Solution", props.namespace);
+      this.config.set("Solution", props.companyshort + "." + props.projectname);
       this.config.save();
       this.props = props;
     });
@@ -130,7 +130,7 @@ module.exports = class extends DnnGeneratorBase {
   }
 
   install() {
-    this._createSolution(this.config.get("Solution"));
+    this._createSolution(this.props.companyshort + "." + this.props.projectname);
   }
 
   end() {

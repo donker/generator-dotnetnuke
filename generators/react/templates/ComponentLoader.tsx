@@ -7,7 +7,7 @@ import Foo from "./Components/Foo";
 
 export class ComponentLoader {
   public static load(): void {
-    $(".productsByStatusDetails").each(function(i, el) {
+    $(".<%= Name %>").each(function(i, el) {
         var moduleId = $(el).data("moduleid");
         ReactDOM.render(
           <Foo

@@ -53,7 +53,7 @@ const watcher = (src, dest) =>
 const <%= ModuleName %>Watcher = watcher(
   "Server/<%= ModuleName %>",
   pkg.dnn.pathsAndFiles.devSitePath +
-    "\\DesktopModules\\<%= ModuleName %>"
+    "\\DesktopModules\\MVC\\<%= Company %>\\<%= Name %>"
 );
 
 const DllWatcher = chokidar

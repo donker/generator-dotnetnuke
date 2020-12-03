@@ -14,7 +14,6 @@ export class AppManager {
           moduleId,
           $(el).data("tabid"),
           $(el).data("locale"),
-          $(el).data("locales"),
           $(el).data("resources"),
           $(el).data("common"),
           $(el).data("security"),

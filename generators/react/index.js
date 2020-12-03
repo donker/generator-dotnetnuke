@@ -4,6 +4,7 @@ const chalk = require("chalk");
 const packages = require("./packages.json");
 const reduxPackages = require("./reduxpackages.json");
 const routerPackages = require("./routerpackages.json");
+const webpackPackages = require("./webpackpackages.json");
 
 module.exports = class extends DnnGeneratorBase {
   constructor(args, opts) {
@@ -76,6 +77,7 @@ module.exports = class extends DnnGeneratorBase {
   install() {
     this._installWebPack();
     this._addPackages(packages, this.destinationPath("."));
+    this._addPackages(webpackPackages, this.destinationPath("."));
     if (this.props.ReactOptions.includes("redux")) {
       this._addPackages(reduxPackages, this.destinationPath("."));
     }

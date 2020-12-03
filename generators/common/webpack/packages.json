@@ -2,27 +2,7 @@
   {
     "versions": "all",
     "nodePackagesList": [
-      "webpack",
-      "webpack-cli",
-      "@babel/core",
-      "babel-loader",
-      "babel-plugin-transform-class-properties",
-      "@babel/plugin-transform-runtime",
-      "@babel/preset-env",
-      "@babel/preset-react",
-      "@babel/preset-typescript",
-      "css-loader",
-      "extract-text-webpack-plugin",
-      "file-loader",
-      "filemanager-webpack-plugin",
-      "mini-css-extract-plugin",
-      "node-sass",
-      "sass-loader",
-      "style-loader",
-      "ts-loader",
-      "typescript",
-      "deepmerge",
-      "concurrently"
+      "typescript"
     ]
   }
 ]

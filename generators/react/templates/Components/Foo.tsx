@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as Models from "../../Models/";
+import * as Models from "../Models/";
 
 interface IFooProps {
   module: Models.IAppModule;

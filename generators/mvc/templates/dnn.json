@@ -5,7 +5,7 @@
   "description": "<%= Company %> <%= Name %> Module",
   "packageName": "<%= Company %>_<%= Name %>",
   "folder": "MVC/<%= Company %>/<%= Name %>",
-  "iconFile": "DesktopModules\\MVC\\<%= Company %>\\<%= Name %>\\<%= Name %>.png",
+  "iconFile": "DesktopModules\\MVC\\<%= Company %>\\<%= Name %>\\icon.png",
   "module": {
     "azureCompatible": "true",
     "moduleName": "<%= Company %>_<%= Name %>",
@@ -38,6 +38,7 @@
   },
   "pathsAndFiles": {
     "pathToAssemblies": "./bin",
+    "pathToScripts": "./Server/SqlScripts",
     "assemblies": ["<%= Namespace %>.dll"],
     "excludeFilter": ["<%= Name %>/bin/", "<%= Name %>/obj/"]
   }

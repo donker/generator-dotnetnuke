@@ -1,0 +1,15 @@
+{
+    "presets": [
+      [
+        "@babel/env",
+        {
+          "modules": false,
+          "useBuiltIns": "usage"
+        }
+      ],
+      "@babel/preset-react",
+      "@babel/preset-typescript"
+    ],
+    "plugins": ["transform-class-properties", "@babel/plugin-transform-runtime"]
+  }
+  

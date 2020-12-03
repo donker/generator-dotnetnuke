@@ -25,6 +25,22 @@
       {
         "package": "@types/jquery",
         "dev": true
+      },
+      {
+        "package": "chokidar",
+        "dev": true
+      },
+      {
+        "package": "deepmerge",
+        "dev": true
+      },
+      {
+        "package": "fs-extra",
+        "dev": true
+      },
+      {
+        "package": "typescript",
+        "dev": true
       }
     ]
   }

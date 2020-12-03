@@ -36,7 +36,7 @@ module.exports = class DnnGeneratorBase extends Generator {
       "-n",
       solutionName,
       "-o",
-      this.destinationRoot()
+      this.destinationRoot(),
     ]);
   }
 

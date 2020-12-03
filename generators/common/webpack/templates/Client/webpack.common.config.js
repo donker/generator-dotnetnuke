@@ -1,6 +1,6 @@
 var path = require("path"),
   webpack = require("webpack"),
-  ExtractTextPlugin = require("extract-text-webpack-plugin");
+  MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 var isProduction =
   process.argv.indexOf("-p") >= 0 || process.env.NODE_ENV === "production";
@@ -16,11 +16,8 @@ var commonConfig = {
         test: /\.tsx?$/,
         exclude: [/node_modules/, /_Development/],
         use: {
-          loader: "babel-loader",
-          options: {
-            presets: ["@babel/preset-env", "@babel/preset-react"]
-          }
-        }
+          loader: "ts-loader",
+        },
       },
       {
         test: /.jsx?$/,
@@ -28,52 +25,45 @@ var commonConfig = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-env", "@babel/preset-react"]
-          }
-        }
+            presets: ["@babel/preset-env", "@babel/preset-react"],
+          },
+        },
       },
       {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: [
-            {
-              loader: "css-loader",
-              options: {
-                soureMap: true,
-                url: false
-              }
-            },
-            {
-              loader: "sass-loader?sourceMap",
-              options: {}
-            }
-          ]
-        })
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          !isProduction ? "style-loader" : MiniCssExtractPlugin.loader,
+          "css-loader",
+          "postcss-loader",
+          "sass-loader",
+        ],
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/,
-        loader: "file-loader"
-      }
-    ]
+        loader: "file-loader",
+      },
+    ],
   },
   externals: {
-    jquery: "jQuery"
+    jquery: "jQuery",
   },
   plugins: [
     new webpack.EnvironmentPlugin({
       NODE_ENV: "development", // use 'development' unless process.env.NODE_ENV is defined
-      DEBUG: false
+      DEBUG: false,
     }),
     new webpack.ProvidePlugin({
       $: "jquery",
       jQuery: "jquery",
-      "window.jQuery": "jquery"
+      "window.jQuery": "jquery",
     }),
-    new ExtractTextPlugin({
-      filename: "../module.css"
-    })
-  ]
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: "../module.css",
+      chunkFilename: "[id].css",
+    }),
+  ],
 };
 
 module.exports = commonConfig;
