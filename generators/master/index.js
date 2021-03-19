@@ -123,7 +123,7 @@ module.exports = class extends DnnGeneratorBase {
     this.log(chalk.white("Creating master project."));
 
     this.fs.copyTpl(
-      this.templatePath("*.*"),
+      this.templatePath("**/*.*"),
       this.destinationPath(""),
       this.props
     );
