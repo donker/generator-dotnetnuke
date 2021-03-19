@@ -6,7 +6,7 @@ const pascalCase = require("pascal-case");
 const which = require("which");
 const fg = require("fast-glob");
 const path = require("path");
-const webPackPackages = require("../common/webpack/packages.json");
+const webPackPackages = require("../common/webpack/webpackpackages.json");
 
 module.exports = class DnnGeneratorBase extends Generator {
   constructor(args, opts) {
@@ -54,7 +54,7 @@ module.exports = class DnnGeneratorBase extends Generator {
     if (!this.fs.exists(this.destinationPath("Client/webpack.config.js"))) {
       let template = Object.assign({}, this.config.getAll(), this.props);
       this.fs.copyTpl(
-        this.templatePath("../../common/webpack/templates/*.*"),
+        this.templatePath("../../common/webpack/templates/**/*.*"),
         this.destinationPath("."),
         template
       );
