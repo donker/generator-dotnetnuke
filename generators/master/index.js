@@ -1,6 +1,7 @@
 "use strict";
 const DnnGeneratorBase = require("../lib/DnnGeneratorBase");
 const chalk = require("chalk");
+const path = require("path");
 
 module.exports = class extends DnnGeneratorBase {
   constructor(args, opts) {
@@ -16,8 +17,8 @@ module.exports = class extends DnnGeneratorBase {
         type: "input",
         name: "projectname",
         message: "Project name (single word, i.e. no spaces):",
-        default: this.appname,
-        store: true,
+        default: this._pascalCaseName(path.basename(process.cwd())),
+        store: false,
         validate: str => {
           return str.length > 0;
         }
@@ -26,7 +27,8 @@ module.exports = class extends DnnGeneratorBase {
         type: "input",
         name: "projectdescription",
         message: "Project description:",
-        store: true,
+        default: (answers) => answers.projectname + " module",
+        store: false,
         validate: str => {
           return str.length > 0;
         }
@@ -53,7 +55,8 @@ module.exports = class extends DnnGeneratorBase {
         type: "input",
         name: "companyfull",
         message: "Company or organization full name:",
-        store: true,
+        default: this._pascalCaseName(path.basename(path.resolve(".."))),
+        store: false,
         validate: str => {
           return str.length > 0;
         }
@@ -62,7 +65,8 @@ module.exports = class extends DnnGeneratorBase {
         type: "input",
         name: "companyshort",
         message: "Company or organization short name (one word, i.e. no spaces):",
-        store: true,
+        default: this._pascalCaseName(path.basename(path.resolve(".."))),
+        store: false,
         validate: str => {
           return str.length > 0;
         }
@@ -99,7 +103,7 @@ module.exports = class extends DnnGeneratorBase {
         type: 'input',
         name: 'namespace',
         message: 'Namespace for your project:',
-        store: true,
+        store: false,
         default: (answers) => {return this._pascalCaseName(answers.companyshort) + '.' + this._pascalCaseName(answers.projectname)},
         validate: str => {
           return str.length > 0;
