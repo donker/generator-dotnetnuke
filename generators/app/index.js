@@ -47,7 +47,8 @@ module.exports = class extends DnnGeneratorBase {
           { name: "SCSS", value: "scss" },
           { name: "React", value: "react" },
           { name: "Skin", value: "skin" },
-          { name: "Container", value: "container" }
+          { name: "Container", value: "container" },
+          { name: "PersonaBar", value: "personabar" }
         ]
       },
       {

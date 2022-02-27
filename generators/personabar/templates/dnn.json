@@ -1,0 +1,25 @@
+{
+  "name": "<%= Company %>_<%= Name %>",
+  "projectType": "personabar",
+  "friendlyName": "<%= Company %> <%= Name %>",
+  "description": "<%= Company %> <%= Name %> PersonaBar Extension",
+  "packageName": "<%= Company %>_<%= Name %>",
+  "folder": "Admin/Dnn.PersonaBar/Modules/<%= Name %>",
+  "iconFile": "DesktopModules/Admin/Dnn.PersonaBar/Modules/<%= Name %>/icon.png",
+  "personaBarMenu": {
+    "identifier": "<%= Name %>",
+    "moduleName": "<%= Name %>",
+    "controller": "<%= Company %>.Dnn.<%= Name %>.Common.MenuController, <%= Company %>.Dnn.<%= Name %>",
+    "resourceKey": "nav_<%= Name %>",
+    "path": "<%= Name %>",
+    "mobileSupport": true,
+    "parent": "Settings",
+    "order": 11
+  },
+  "pathsAndFiles": {
+    "pathToAssemblies": "./bin",
+    "assemblies": [
+      "<%= Company %>.Dnn.<%= Name %>.dll"
+    ]
+  }
+}
