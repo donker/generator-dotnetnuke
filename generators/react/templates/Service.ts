@@ -1,5 +1,3 @@
-import * as Models from './Models';
-
 export interface DnnServiceFramework extends JQueryStatic {
     dnnSF(moduleId: number): DnnServiceFramework;
     getServiceRoot(path: string): string;

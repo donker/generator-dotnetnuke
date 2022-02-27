@@ -1,5 +1,5 @@
 import DataService from "../Service";
-import { IContextSecurity } from "./index";
+import { IContextSecurity } from "./IContextSecurity";
 
 export interface IAppModule {
     moduleId: number;

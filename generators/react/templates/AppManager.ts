@@ -1,16 +1,17 @@
 import * as $ from "jquery";
-import * as Models from "./Models/";
+import { AppModule, IAppModule } from "./Models/IAppModule";
+import { KeyedCollection } from "./Models/IKeyedCollection";
 import DataService from "./Service";
 
 export class AppManager {
-  public static Modules = new Models.KeyedCollection<Models.IAppModule>();
+  public static Modules = new KeyedCollection<IAppModule>();
 
   public static loadData(): void {
     $(".<%= Company %><%= Name %>").each(function(i, el) {
       var moduleId = $(el).data("moduleid");
       AppManager.Modules.Add(
         moduleId,
-        new Models.AppModule(
+        new AppModule(
           moduleId,
           $(el).data("tabid"),
           $(el).data("locale"),

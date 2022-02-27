@@ -1,8 +1,8 @@
 import * as React from "react";
-import * as Models from "../Models/";
+import { IAppModule } from "../Models/IAppModule";
 
 interface IFooProps {
-  module: Models.IAppModule;
+  module: IAppModule;
   bar: string;
 }
 
