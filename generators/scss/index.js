@@ -2,6 +2,7 @@
 const DnnGeneratorBase = require("../lib/DnnGeneratorBase");
 const chalk = require("chalk");
 const packages = require("./packages.json");
+const { readdirSync } = require("fs");
 
 module.exports = class extends DnnGeneratorBase {
   constructor(args, opts) {
@@ -23,13 +24,16 @@ module.exports = class extends DnnGeneratorBase {
         }
       },
       {
-        type: "input",
+        type: "list",
         name: "ModuleName",
         message: "Module name (of module this project is linked to):",
         store: false,
-        validate: str => {
-          return str.length > 0;
-        }
+        choices: () =>
+          readdirSync("./Server", { withFileTypes: true })
+            .filter((dirent) => dirent.isDirectory())
+            .map((dirent) => {
+              return { name: dirent.name, value: dirent.name };
+            }),
       }
     ];
 
