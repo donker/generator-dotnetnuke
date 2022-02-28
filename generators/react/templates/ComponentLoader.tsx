@@ -1,21 +1,20 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import * as $ from "jquery";
 
 import { AppManager } from "./AppManager";
 import Foo from "./Components/Foo";
 
 export class ComponentLoader {
   public static load(): void {
-    $(".<%= Name %>").each(function(i, el) {
-        var moduleId = $(el).data("moduleid");
-        ReactDOM.render(
-          <Foo
-            module={AppManager.Modules.Item(moduleId.toString())}
-            bar={$(el).data("bar")}
-          />,
-          el
-        );
-      });
-    }
+    document.querySelectorAll(".<%= Name %>").forEach((el) => {
+      var moduleId = el.dataInt("moduleid");
+      ReactDOM.render(
+        <Foo
+          module={AppManager.Modules.Item(moduleId.toString())}
+          bar={el.dataString("bar", "foobar")}
+        />,
+        el
+      );
+    });
+  }
 }
