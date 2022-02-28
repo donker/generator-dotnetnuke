@@ -4,6 +4,7 @@ const chalk = require("chalk");
 const packages = require("./packages.json");
 const reduxPackages = require("./reduxpackages.json");
 const routerPackages = require("./routerpackages.json");
+const { readdirSync } = require("fs");
 
 module.exports = class extends DnnGeneratorBase {
   constructor(args, opts) {
@@ -20,18 +21,21 @@ module.exports = class extends DnnGeneratorBase {
         name: "Name",
         message: "Name:",
         store: false,
-        validate: str => {
+        validate: (str) => {
           return str.length > 0;
-        }
+        },
       },
       {
-        type: "input",
+        type: "list",
         name: "ModuleName",
         message: "Module name (of module this project is linked to):",
         store: false,
-        validate: str => {
-          return str.length > 0;
-        }
+        choices: () =>
+          readdirSync("./Server", { withFileTypes: true })
+            .filter((dirent) => dirent.isDirectory())
+            .map((dirent) => {
+              return { name: dirent.name, value: dirent.name };
+            }),
       },
       {
         type: "checkbox",
@@ -40,12 +44,12 @@ module.exports = class extends DnnGeneratorBase {
         store: false,
         choices: [
           { name: "Redux", value: "redux" },
-          { name: "React Router", value: "router" }
-        ]
-      }
+          { name: "React Router", value: "router" },
+        ],
+      },
     ];
 
-    return this.prompt(prompts).then(props => {
+    return this.prompt(prompts).then((props) => {
       props.Name = this._pascalCaseName(props.Name);
       this.props = props;
     });
