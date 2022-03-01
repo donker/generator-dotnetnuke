@@ -7,7 +7,19 @@
         "dev": true
       },
       {
+        "package": "sass",
+        "dev": true
+      },
+      {
         "package": "filemanager-webpack-plugin",
+        "dev": true
+      },
+      {
+        "package": "css-loader",
+        "dev": true
+      },
+      {
+        "package": "postcss-loader",
         "dev": true
       }
     ]

@@ -2,7 +2,7 @@
 const DnnGeneratorBase = require("../lib/DnnGeneratorBase");
 const chalk = require("chalk");
 const packages = require("./packages.json");
-const { readdirSync } = require("fs");
+const fs = require("fs");
 
 module.exports = class extends DnnGeneratorBase {
   constructor(args, opts) {
@@ -19,25 +19,58 @@ module.exports = class extends DnnGeneratorBase {
         name: "Name",
         message: "Name:",
         store: false,
-        validate: str => {
+        validate: (str) => {
           return str.length > 0;
-        }
+        },
+      },
+      {
+        type: "list",
+        name: "FileOutName",
+        message: "Output Filename:",
+        store: false,
+        choices: (answers) => [
+          {
+            name: answers.Name.toLowerCase(),
+            value: answers.Name.toLowerCase(),
+          },
+          { name: "module", value: "module" },
+          { name: "skin", value: "skin" },
+        ],
       },
       {
         type: "list",
         name: "ModuleName",
         message: "Module name (of module this project is linked to):",
         store: false,
-        choices: () =>
-          readdirSync("./Server", { withFileTypes: true })
-            .filter((dirent) => dirent.isDirectory())
-            .map((dirent) => {
-              return { name: dirent.name, value: dirent.name };
-            }),
-      }
+        choices: () => {
+          let res = [];
+          if (fs.existsSync("./Server")) {
+            res = res.concat(
+              fs.readdirSync("./Server", { withFileTypes: true })
+                .filter((dirent) => dirent.isDirectory())
+                .map((dirent) => {
+                  return { name: dirent.name, value: "Server/" + dirent.name };
+                })
+            );
+          }
+          if (fs.existsSync("./Themes") && fs.existsSync("./Themes/Skins")) {
+            res = res.concat(
+              fs.readdirSync("./Themes/Skins", { withFileTypes: true })
+                .filter((dirent) => dirent.isDirectory())
+                .map((dirent) => {
+                  return {
+                    name: dirent.name,
+                    value: "Themes/Skins/" + dirent.name,
+                  };
+                })
+            );
+          }
+          return res;
+        },
+      },
     ];
 
-    return this.prompt(prompts).then(props => {
+    return this.prompt(prompts).then((props) => {
       props.Name = this._pascalCaseName(props.Name);
       this.props = props;
     });
@@ -47,7 +80,7 @@ module.exports = class extends DnnGeneratorBase {
     this.log(chalk.white("Creating Sass project."));
 
     let template = Object.assign({}, this.config.getAll(), this.props, {
-      Guid: this._generateGuid()
+      Guid: this._generateGuid(),
     });
 
     this.fs.copyTpl(
@@ -57,8 +90,8 @@ module.exports = class extends DnnGeneratorBase {
       null,
       {
         globOptions: {
-          ignore: ["**/_*.*"]
-        }
+          ignore: ["**/_*.*"],
+        },
       }
     );
   }

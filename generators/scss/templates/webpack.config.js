@@ -2,14 +2,14 @@ var path = require("path"),
   MiniCssExtractPlugin = require("mini-css-extract-plugin"),
   FileManagerPlugin = require("filemanager-webpack-plugin");
 
-var outPath = path.resolve(__dirname, "../../Server/<%= ModuleName %>");
+var outPath = path.resolve(__dirname, "../../<%= ModuleName %>");
 
 var <%= Name.toLowerCase() %>AppConfig = {
   context: path.join(__dirname, "."),
-  entry: "./scss/module.scss",
+  entry: "./scss/styles.scss",
   output: {
     path: outPath,
-    filename: "module.css.js"
+    filename: "<%= FileOutName %>.css.js"
   },
   module: {
     rules: [
@@ -21,12 +21,12 @@ var <%= Name.toLowerCase() %>AppConfig = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "module.css"
+      filename: "<%= FileOutName %>.css"
     }),
     new FileManagerPlugin({
       events: {
         onEnd: {
-          delete: [outPath + "/module.css.js"],
+          delete: [outPath + "/<%= FileOutName %>.css.js"],
         },
       },
     })
