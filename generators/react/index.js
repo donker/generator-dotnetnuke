@@ -4,7 +4,7 @@ const chalk = require("chalk");
 const packages = require("./packages.json");
 const reduxPackages = require("./reduxpackages.json");
 const routerPackages = require("./routerpackages.json");
-const { readdirSync } = require("fs");
+const fs = require("fs");
 
 module.exports = class extends DnnGeneratorBase {
   constructor(args, opts) {
@@ -31,11 +31,14 @@ module.exports = class extends DnnGeneratorBase {
         message: "Module name (of module this project is linked to):",
         store: false,
         choices: () =>
-          readdirSync("./Server", { withFileTypes: true })
-            .filter((dirent) => dirent.isDirectory())
-            .map((dirent) => {
-              return { name: dirent.name, value: dirent.name };
-            }),
+          fs.existsSync("./Server")
+            ? fs
+                .readdirSync("./Server", { withFileTypes: true })
+                .filter((dirent) => dirent.isDirectory())
+                .map((dirent) => {
+                  return { name: dirent.name, value: dirent.name };
+                })
+            : [],
       },
       {
         type: "checkbox",
@@ -59,7 +62,7 @@ module.exports = class extends DnnGeneratorBase {
     this.log(chalk.white("Creating React project."));
 
     let template = Object.assign({}, this.config.getAll(), this.props, {
-      Guid: this._generateGuid()
+      Guid: this._generateGuid(),
     });
 
     this.fs.copyTpl(
@@ -69,12 +72,10 @@ module.exports = class extends DnnGeneratorBase {
       null,
       {
         globOptions: {
-          ignore: ["**/_*.*"]
-        }
+          ignore: ["**/_*.*"],
+        },
       }
     );
-
-    
   }
 
   install() {

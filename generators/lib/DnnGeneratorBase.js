@@ -63,14 +63,18 @@ module.exports = class DnnGeneratorBase extends Generator {
     this._addPackages(webPackPackages, this.destinationPath("."));
     // now ensure all client projects are added to WebPack
     let fileContents = "";
-    let cssProjects = fs
-      .readdirSync("./Client/Css", { withFileTypes: true })
-      .filter((dirent) => dirent.isDirectory())
-      .map((dirent) => dirent.name);
-    let jsProjects = fs
-      .readdirSync("./Client/Js", { withFileTypes: true })
-      .filter((dirent) => dirent.isDirectory())
-      .map((dirent) => dirent.name);
+    let cssProjects = fs.existsSync("./Client/Css")
+      ? fs
+          .readdirSync("./Client/Css", { withFileTypes: true })
+          .filter((dirent) => dirent.isDirectory())
+          .map((dirent) => dirent.name)
+      : [];
+    let jsProjects = fs.existsSync("./Client/Js")
+      ? fs
+          .readdirSync("./Client/Js", { withFileTypes: true })
+          .filter((dirent) => dirent.isDirectory())
+          .map((dirent) => dirent.name)
+      : [];
     let allProjects = cssProjects.concat(jsProjects);
     cssProjects.forEach((project) => {
       fileContents += `var ${project}AppConfig = require("./Css/${project}/webpack.config");\n`;
@@ -155,10 +159,11 @@ module.exports = class DnnGeneratorBase extends Generator {
           }
         }
         if (canAdd) {
+          console.log("Adding package: " + pkg);
           if (useNpm) {
-            this.npmInstall(pkg, { "save-dev": dev });
+            this.spawnCommandSync("npm", ["i", dev ? "-D" : "-P", pkg]);
           } else {
-            this.yarnInstall(pkg, { "save-dev": dev });
+            this.spawnCommandSync("yarn", ["add", pkg, dev ? "-D" : ""]);
           }
         }
       });
