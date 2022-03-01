@@ -7,6 +7,7 @@ const which = require("which");
 const fg = require("fast-glob");
 const path = require("path");
 const webPackPackages = require("../common/webpack/webpackpackages.json");
+const fs = require("fs");
 
 module.exports = class DnnGeneratorBase extends Generator {
   constructor(args, opts) {
@@ -46,7 +47,7 @@ module.exports = class DnnGeneratorBase extends Generator {
       "sln",
       this.destinationPath(solutionName),
       "add",
-      this.destinationPath(projectPath)
+      this.destinationPath(projectPath),
     ]);
   }
 
@@ -60,6 +61,32 @@ module.exports = class DnnGeneratorBase extends Generator {
       );
     }
     this._addPackages(webPackPackages, this.destinationPath("."));
+    // now ensure all client projects are added to WebPack
+    let fileContents = "";
+    let cssProjects = fs
+      .readdirSync("./Client/Css", { withFileTypes: true })
+      .filter((dirent) => dirent.isDirectory())
+      .map((dirent) => dirent.name);
+    let jsProjects = fs
+      .readdirSync("./Client/Js", { withFileTypes: true })
+      .filter((dirent) => dirent.isDirectory())
+      .map((dirent) => dirent.name);
+    let allProjects = cssProjects.concat(jsProjects);
+    cssProjects.forEach((project) => {
+      fileContents += `var ${project}AppConfig = require("./Css/${project}/webpack.config");\n`;
+    });
+    jsProjects.forEach((project) => {
+      fileContents += `var ${project}AppConfig = require("./Js/${project}/webpack.config");\n`;
+    });
+    fileContents += `module.exports = [\n`;
+    allProjects.forEach((project) => {
+      fileContents += `  ${project}AppConfig,\n`;
+    });
+    fileContents += `];\n`;
+    fs.writeFileSync(
+      this.destinationPath("./Client/webpack.config.js"),
+      fileContents
+    );
   }
 
   _addPackages(packages, projFile) {
@@ -68,15 +95,15 @@ module.exports = class DnnGeneratorBase extends Generator {
     let useNpm = this.config.get("promptValues").npm;
     let nugetPackageList = null;
     let nodePackageList = null;
-    packages.forEach(p => {
+    packages.forEach((p) => {
       if (p.versions == "all") {
         nugetPackageList = p.nugetPackages;
         nodePackageList = p.nodePackages || [];
         if (p.nodePackageList) {
           nodePackageList.push(
-            p.nodePackageList.map(n => {
+            p.nodePackageList.map((n) => {
               return {
-                package: n
+                package: n,
               };
             })
           );
@@ -86,9 +113,9 @@ module.exports = class DnnGeneratorBase extends Generator {
         nodePackageList = p.nodePackages || [];
         if (p.nodePackageList) {
           nodePackageList.push(
-            p.nodePackageList.map(n => {
+            p.nodePackageList.map((n) => {
               return {
-                package: n
+                package: n,
               };
             })
           );
@@ -96,14 +123,14 @@ module.exports = class DnnGeneratorBase extends Generator {
       }
     });
     if (nugetPackageList) {
-      nugetPackageList.forEach(p => {
+      nugetPackageList.forEach((p) => {
         this.spawnCommandSync("dotnet", [
           "add",
           projFile,
           "package",
           p.package,
           "-v",
-          p.version == "current" ? version : p.version
+          p.version == "current" ? version : p.version,
         ]);
       });
     }
@@ -111,7 +138,7 @@ module.exports = class DnnGeneratorBase extends Generator {
       let project = this.fs.readJSON(this.destinationPath("package.json"));
       var devDependencies = project.devDependencies;
       var dependencies = project.dependencies;
-      nodePackageList.forEach(np => {
+      nodePackageList.forEach((np) => {
         var dev = np.dev == undefined ? true : np.dev;
         var pkg = np.package;
         if (np.version) {
@@ -140,7 +167,7 @@ module.exports = class DnnGeneratorBase extends Generator {
 
   _copyTplWithNameReplace(patterns, to, context) {
     let files = fg.sync(patterns);
-    files.forEach(file => {
+    files.forEach((file) => {
       let newFileName = path
         .basename(file)
         .replace("_name_", context.Name)
