@@ -5,6 +5,10 @@
       {
         "package": "sass-loader",
         "dev": true
+      },
+      {
+        "package": "filemanager-webpack-plugin",
+        "dev": true
       }
     ]
   }

@@ -24,9 +24,11 @@ var <%= Name.toLowerCase() %>AppConfig = {
       filename: "module.css"
     }),
     new FileManagerPlugin({
-      onEnd: {
-        delete: [outPath + "/module.css.js"]
-      }
+      events: {
+        onEnd: {
+          delete: [outPath + "/module.css.js"],
+        },
+      },
     })
   ]
 };
