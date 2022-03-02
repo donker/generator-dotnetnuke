@@ -2,7 +2,7 @@ var path = require("path"),
   MiniCssExtractPlugin = require("mini-css-extract-plugin"),
   FileManagerPlugin = require("filemanager-webpack-plugin");
 
-var outPath = path.resolve(__dirname, "../../<%= ModuleName %>");
+var outPath = path.resolve(__dirname, "../../../<%= ModuleName %>");
 
 var <%= Name.toLowerCase() %>AppConfig = {
   context: path.join(__dirname, "."),

@@ -5,7 +5,7 @@ var clientAppConfig = Object.assign({}, commonConfig, {
   context: path.join(__dirname, "."),
   entry: "./App.tsx",
   output: {
-    path: path.resolve(__dirname, "../../../Server/<%= Name %>/js"),
+    path: path.resolve(__dirname, "../../../Server/<%= ModuleName %>/js"),
     filename: "<%= Name.toLowerCase() %>.js"
   },
   resolve: {
