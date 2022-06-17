@@ -32,6 +32,9 @@
             "controlType": "Edit",
             "viewOrder": 0
           }
+        ],
+        "permissions": [
+          { "code": "<%= Company %>_<%= Name %>_MODULE", "key": "CANDO", "name": "Does Stuff" }
         ]
       }
     ]
