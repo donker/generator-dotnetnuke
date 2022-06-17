@@ -1,0 +1,16 @@
+{
+    "Template": "templates\\Main.cshtml",
+    "OutputDirectory": ".out",
+    "OrgName": "<%= Company %>",
+    "ModuleName": "<%= Project %>",
+    "RootNameSpace": "<%= Namespace %>",
+    "SiteConfig": "",
+    "ConnectionString": "",
+    "ObjectQualifier": "",
+    "DatabaseOwner": "dbo",
+    "ModuleObjectQualifier": "<%= Project %>_",
+    "IncludeSqlScripts": true,
+    "EnumValues": null,
+    "FullDbPattern": ""
+  }
+  
