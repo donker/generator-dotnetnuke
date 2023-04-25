@@ -16,7 +16,6 @@ class default_1 extends Generator {
         if (this.promptValues == undefined) {
             this.promptValues = {};
         }
-        this.log(this.promptValues);
     }
     _saveNewAnswers(answers) {
         this.promptValues = Object.assign({}, this.promptValues, answers);
@@ -130,9 +129,10 @@ class default_1 extends Generator {
         }
     }
     _copyTplWithNameReplace(patterns, to, context) {
-        let files = fg.sync(patterns);
+        const paths = patterns.map(p => p.replace(/\\/g, '/'));
+        const files = fg.sync(paths, { dot: true });
         files.forEach((file) => {
-            let newFileName = path.basename(file).replace("_name_", context.Name).replace("_company_", context.Company).replace("_", "");
+            const newFileName = path.basename(file).replace("_name_", context.Name).replace("_company_", context.Company).replace("_", "");
             this.fs.copyTpl(file, this.destinationPath(to + newFileName), context);
         });
     }

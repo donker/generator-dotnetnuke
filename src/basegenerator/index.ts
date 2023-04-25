@@ -31,7 +31,6 @@ export interface IBaseProps extends Generator.GeneratorOptions {
 }
 
 export default class extends Generator<IBaseProps> {
-
   props: any;
   promptValues: any;
 
@@ -41,7 +40,6 @@ export default class extends Generator<IBaseProps> {
     if (this.promptValues == undefined) {
       this.promptValues = {};
     }
-    this.log(this.promptValues);
   }
 
   _saveNewAnswers(answers: any): void {
@@ -159,10 +157,11 @@ export default class extends Generator<IBaseProps> {
     }
   }
 
-  _copyTplWithNameReplace(patterns: any, to: any, context: any): void {
-    let files = fg.sync(patterns);
-    files.forEach((file) => {
-      let newFileName = path.basename(file).replace("_name_", context.Name).replace("_company_", context.Company).replace("_", "");
+  _copyTplWithNameReplace(patterns: string[], to: string, context: any): void {
+    const paths = patterns.map(p => p.replace(/\\/g, '/'));
+    const files = fg.sync(paths, { dot: true });
+    files.forEach((file: any) => {
+      const newFileName = path.basename(file).replace("_name_", context.Name).replace("_company_", context.Company).replace("_", "");
       this.fs.copyTpl(file, this.destinationPath(to + newFileName), context);
     });
   }
