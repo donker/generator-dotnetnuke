@@ -54,6 +54,7 @@ export default class extends DnnGeneratorBase {
     return this.prompt(prompts).then((props) => {
       props.Name = this._pascalCaseName(props.Name);
       this.props = props;
+      this._saveNewAnswers(props);
     });
   }
 

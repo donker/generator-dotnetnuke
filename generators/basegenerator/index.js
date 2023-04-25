@@ -12,7 +12,16 @@ const webPackPackages = require("./webpackpackages.json");
 class default_1 extends Generator {
     constructor(args, opts) {
         super(args, opts);
-        this.options.namespace = "teams";
+        this.promptValues = this.config.get("promptValues");
+        if (this.promptValues == undefined) {
+            this.promptValues = {};
+        }
+        this.log(this.promptValues);
+    }
+    _saveNewAnswers(answers) {
+        this.promptValues = Object.assign({}, this.promptValues, answers);
+        this.config.set("promptValues", this.promptValues);
+        this.config.save();
     }
     _hasYarn() {
         return which.sync("yarn", { nothrow: true }) !== undefined;

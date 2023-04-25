@@ -112,6 +112,7 @@ export default class extends DnnGeneratorBase {
     return this.prompt(prompts).then((props) => {
       props.projectname = this._pascalCaseName(props.projectname);
       props.companyshort = this._pascalCaseName(props.companyshort);
+      this._saveNewAnswers(props);
       this.config.set("Company", props.companyshort);
       this.config.set("Project", props.projectname);
       this.config.set("Namespace", props.namespace);

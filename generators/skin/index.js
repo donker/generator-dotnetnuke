@@ -23,6 +23,7 @@ class default_1 extends basegenerator_1.default {
         return this.prompt(prompts).then((props) => {
             props.Name = this._pascalCaseName(props.Name);
             this.props = props;
+            this._saveNewAnswers(props);
         });
     }
     writing() {

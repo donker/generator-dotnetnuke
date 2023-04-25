@@ -22,7 +22,6 @@ class default_1 extends basegenerator_1.default {
     prompting() {
         this.log(yosay("Welcome to the " + chalk.green("DotNetNuke") + " project generator!"));
         this.log(chalk.white("This scaffolds the project in your current directory."));
-        this.log(JSON.stringify(this.config.get("promptValues")));
         const prompts = [
             {
                 when: !this.options.projType,
@@ -44,7 +43,7 @@ class default_1 extends basegenerator_1.default {
             {
                 when: () => {
                     let pv = this.config.get("promptValues");
-                    return pv ? pv.dnnVersion == undefined : false;
+                    return pv ? pv.dnnVersion == undefined : true;
                 },
                 type: "list",
                 name: "dnnVersion",
@@ -57,7 +56,7 @@ class default_1 extends basegenerator_1.default {
             {
                 when: () => {
                     let pv = this.config.get("promptValues");
-                    return pv ? pv.npm == undefined : false;
+                    return pv ? pv.npm == undefined : true;
                 },
                 type: "list",
                 name: "npm",
@@ -71,6 +70,7 @@ class default_1 extends basegenerator_1.default {
         ];
         return this.prompt(prompts).then((props) => {
             this.props = props;
+            this._saveNewAnswers(props);
         });
     }
     composing() {
@@ -78,12 +78,6 @@ class default_1 extends basegenerator_1.default {
             projType: this.props.value,
         };
         this.composeWith(require.resolve(`../${this.props.projType}`), options);
-        // this.composeWith(`teams:${this.props.projType}`, options);
-        // switch (this.props.projType) {
-        //   case "master":
-        //     this.composeWith(require.resolve('../master'), options);
-        //     break;
-        // }
     }
     writing() { }
     install() { }

@@ -31,11 +31,23 @@ export interface IBaseProps extends Generator.GeneratorOptions {
 }
 
 export default class extends Generator<IBaseProps> {
+
   props: any;
+  promptValues: any;
 
   constructor(args: any, opts: any) {
     super(args, opts);
-    this.options.namespace = "teams";
+    this.promptValues = this.config.get("promptValues");
+    if (this.promptValues == undefined) {
+      this.promptValues = {};
+    }
+    this.log(this.promptValues);
+  }
+
+  _saveNewAnswers(answers: any): void {
+    this.promptValues = Object.assign({}, this.promptValues, answers);
+    this.config.set("promptValues", this.promptValues);
+    this.config.save();
   }
 
   _hasYarn(): boolean {
