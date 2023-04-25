@@ -1,11 +1,10 @@
-using DotNetNuke.Security;
 using DotNetNuke.Web.Mvc.Framework.ActionFilters;
 using <%= Namespace %>.Common;
 using System.Web.Mvc;
 
 namespace <%= Namespace %>.Controllers
 {
-    [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Edit)]
+    [DnnModuleAuthorize(AccessLevel = DotNetNuke.Security.SecurityAccessLevel.Edit)]
     [DnnHandleError]
     public class SettingsController : <%= Name %>MvcController
     {
