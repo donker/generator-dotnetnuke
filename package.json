@@ -22,11 +22,11 @@
   "repository": "donker/generator-dotnetnuke",
   "license": "MIT",
   "dependencies": {
-    "chalk": "^2.4.2",
-    "pascal-case": "^2.0.1",
+    "chalk": "^5.2.0",
+    "pascal-case": "^3.1.2",
     "uuid-v4": "^0.1.0",
-    "which": "^1.3.1",
-    "yeoman-generator": "^4.0.1",
+    "which": "^3.0.0",
+    "yeoman-generator": "^5.8.0",
     "yosay": "^2.0.2"
   }
 }
