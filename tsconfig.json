@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "experimentalDecorators": true,
+    "noUnusedLocals": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true,
+    "downlevelIteration": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es6",
+    "lib": ["es6", "dom"],
+    "sourceMap": false,
+    "rootDir": "src",
+    "outDir": "generators"
+  },
+  "exclude": ["node_modules", "generators"]
+}

@@ -2,7 +2,7 @@
   "name": "generator-dotnetnuke",
   "version": "1.0.0",
   "description": "Scaffolds DNN Extensions",
-  "main": "generators/index.js",
+  "main": "generators/app/index.js",
   "keywords": [
     "yeoman-generator",
     "dnn",
@@ -12,7 +12,8 @@
     "generators"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "watch": "tsc -w"
   },
   "author": {
     "name": "Peter Donker",
@@ -22,11 +23,19 @@
   "repository": "donker/generator-dotnetnuke",
   "license": "MIT",
   "dependencies": {
-    "chalk": "^5.2.0",
+    "chalk": "^4.1.2",
     "pascal-case": "^3.1.2",
-    "uuid-v4": "^0.1.0",
+    "uuid": "^9.0.0",
     "which": "^3.0.0",
     "yeoman-generator": "^5.8.0",
     "yosay": "^2.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.16.0",
+    "@types/uuid": "^9.0.1",
+    "@types/which": "^3.0.0",
+    "@types/yeoman-generator": "^5.2.11",
+    "@types/yosay": "^2.0.1",
+    "typescript": "^5.0.4"
   }
 }
