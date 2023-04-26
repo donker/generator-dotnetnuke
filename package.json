@@ -1,6 +1,6 @@
 {
   "name": "generator-dotnetnuke",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Scaffolds DNN Extensions",
   "main": "generators/app/index.js",
   "keywords": [
